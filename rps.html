@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rock Paper Scissors 💙</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0b0c0c, #0b0d0e);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+    header {
+      margin-top: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #0066cc;
+    }
+    .options {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+    }
+    .options button {
+      font-size: 1.5em;
+      padding: 15px 25px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      transition: background 0.3s;
+      background: #0066cc;
+      color: #fff;
+    }
+    .options button:hover {
+      background: #004999;
+    }
+    #result {
+      margin-top: 30px;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    button.back {
+      margin-top: 20px;
+      background: #004999;
+    }
+   
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Rock Paper Scissors 💙</h1>
+    <button class="back" onclick="location.href='index.html'">Back to Hub 🏠</button>
+  </header>
+
+  <div class="options">
+    <button onclick="play('Rock')">✊ Rock</button>
+    <button onclick="play('Paper')">✋ Paper</button>
+    <button onclick="play('Scissors')">✌️ Scissors</button>
+  </div>
+
+  <div id="result"></div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2023/03/28/audio_62c7f7c6a3.mp3" type="audio/mp3">
+  </audio>
+  <audio id="clickSound">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1b9ed273fa.mp3" type="audio/mp3">
+  </audio>
+  <audio id="winSound">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8d6b5f7f0.mp3" type="audio/mp3">
+  </audio>
+  <audio id="loseSound">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_7f9b8a4d32.mp3" type="audio/mp3">
+  </audio>
+  <audio id="drawSound">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_93a0f1cd52.mp3" type="audio/mp3">
+  </audio>
+
+  <div class="music-controls">
+    
+  </div>
+
+  <script>
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const clickSound = document.getElementById('clickSound');
+    const winSound = document.getElementById('winSound');
+    const loseSound = document.getElementById('loseSound');
+    const drawSound = document.getElementById('drawSound');
+    const resultDiv = document.getElementById('result');
+
+    let isPlaying = false;
+    musicToggle.addEventListener('click', () => {
+      if(!isPlaying){ bgMusic.play(); musicToggle.textContent='Pause Music ⏸️'; }
+      else{ bgMusic.pause(); musicToggle.textContent='Play Music 🎵'; }
+      isPlaying = !isPlaying;
+    });
+
+    function play(userChoice){
+      clickSound.play();
+      const choices=['Rock','Paper','Scissors'];
+      const computerChoice = choices[Math.floor(Math.random()*3)];
+      let outcome='';
+      if(userChoice === computerChoice){ outcome='Draw'; drawSound.play(); }
+      else if(
+        (userChoice==='Rock' && computerChoice==='Scissors')||
+        (userChoice==='Paper' && computerChoice==='Rock')||
+        (userChoice==='Scissors' && computerChoice==='Paper')
+      ){ outcome='You Win!'; winSound.play(); }
+      else{ outcome='You Lose!'; loseSound.play(); }
+      resultDiv.textContent=`You: ${userChoice} | Computer: ${computerChoice} → ${outcome}`;
+    }
+  </script>
+
+</body>
+</html>

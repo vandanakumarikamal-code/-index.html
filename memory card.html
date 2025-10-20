@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Game 💚</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f130f, #0f1210);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      color: #333;
+    }
+    header {
+      margin-top: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #009933;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 100px);
+      grid-gap: 15px;
+      margin-top: 30px;
+    }
+    .card {
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2em;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .card.flipped {
+      background: #80ffb3;
+      transform: rotateY(180deg);
+    }
+    button.back {
+      margin-top: 20px;
+      border: none;
+      background: #009933;
+      color: #fff;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .music-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 12px;
+      padding: 10px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Memory Game 💚</h1>
+    <button class="back" onclick="location.href='index.html'">Back to Hub 🏠</button>
+  </header>
+
+  <div class="grid" id="grid"></div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2023/03/28/audio_48b7f4c1e5.mp3" type="audio/mp3">
+  </audio>
+  <audio id="flipSound">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1b9ed273fa.mp3" type="audio/mp3">
+  </audio>
+  <audio id="matchSound">
+    <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_c8d6b5f7f0.mp3" type="audio/mp3">
+  </audio>
+
+  <div class="music-controls">
+    <button id="musicToggle">Play Music 🎵</button>
+  </div>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const bgMusic = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const flipSound = document.getElementById('flipSound');
+    const matchSound = document.getElementById('matchSound');
+
+    let isPlaying = false;
+    musicToggle.addEventListener('click', () => {
+      if(!isPlaying){ bgMusic.play(); musicToggle.textContent='Pause Music ⏸️'; }
+      else{ bgMusic.pause(); musicToggle.textContent='Play Music 🎵'; }
+      isPlaying = !isPlaying;
+    });
+
+    const emojis = ['🍎','🍌','🍇','🍉','🍒','🥝','🍍','🥭'];
+    let cardsArray = [...emojis, ...emojis];
+    cardsArray.sort(()=>0.5 - Math.random());
+
+    let firstCard=null, secondCard=null;
+
+    function createGrid(){
+      cardsArray.forEach((emoji,i)=>{
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.dataset.emoji = emoji;
+        card.addEventListener('click', flipCard);
+        grid.appendChild(card);
+      });
+    }
+
+    function flipCard(){
+      if(this.classList.contains('flipped')) return;
+      this.textContent=this.dataset.emoji;
+      this.classList.add('flipped');
+      flipSound.play();
+      if(!firstCard) firstCard=this;
+      else{
+        secondCard=this;
+        if(firstCard.dataset.emoji===secondCard.dataset.emoji){
+          matchSound.play();
+          firstCard=null; secondCard=null;
+        } else {
+          setTimeout(()=>{
+            firstCard.textContent=''; firstCard.classList.remove('flipped');
+            secondCard.textContent=''; secondCard.classList.remove('flipped');
+            firstCard=null; secondCard=null;
+          },800);
+        }
+      }
+    }
+
+    createGrid();
+  </script>
+
+</body>
+</html>
