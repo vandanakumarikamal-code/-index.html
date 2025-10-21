@@ -1,106 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mini Game Hub</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #131313, #0a0c0c);
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      color: #100f0f;
-      cursor: pointer; /* hint user to click anywhere */
-    }
-    header { margin-top: 20px; text-align: center; }
-    h1 { font-size: 2.5em; color: #d47fff; }
-    .game-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      width: 90%;
-      max-width: 1000px;
-      margin: 30px auto;
-    }
-    .game-card {
-      background: #b7439e;
-      border-radius: 20px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s, box-shadow 0.3s;
-      text-align: center;
-    }
-    .game-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-    }
-    button {
-      border: none;
-      background: #d47fff;
-      color: #f9046e;
-      padding: 10px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: background 0.3s;
-      font-size: 1em;
-    }
-    button:hover { background: #c9bfcb; }
-    footer { margin-top: auto; padding: 10px; font-size: 0.9em; color: #555; }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tira's Notes Library</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Mini Game Hub 🎮</h1>
-    <p>Choose a game and have fun! (Click anywhere to start music)</p>
-  </header>
 
-  <div class="game-grid">
-    <div class="game-card">
-      <h2>Tic Tac Toe ❌⭕</h2>
-      <button onclick="location.href='tictactoe.html'">Play</button>
-      <A href="tictactoe.html"></A>
-    </div>
-    <div class="game-card">
-      <h2>Rock Paper Scissors ✊✋✌️</h2>
-      <button onclick="location.href='rps.html'">Play</button>
-      <a href="rps.html"></a>
-    </div>
-    <div class="game-card">
-      <h2>Memory Game 🧠</h2>
-      <button onclick="location.href='memory card.html'">Play</button>
-      <A href="memory card.html"></A>
-    </div>
+  <button class="welcome-btn">✦ WeLcOmE ✦</button>
+
+  <div class="intro">
+    <p style="colour:rgb(236, 243, 109);"> 𝓘 𝓐𝓜 𝓥𝓐𝓝𝓓𝓐𝓝𝓐, 𝓣𝓗𝓔 𝓚𝓔𝓔𝓟𝓔𝓡 𝓞𝓕 𝓗𝓘𝓓𝓓𝓔𝓝 𝓝𝓞𝓣𝓔𝓢 </p> 
+    <p style="colour:rgb(218, 165, 253);">
+𝓢𝓱𝓱… 𝓽𝓱𝓮 𝓷𝓸𝓽𝓮𝓼 𝔂𝓸𝓾 𝓭𝓲𝓭𝓷’𝓽 𝓴𝓷𝓸𝔀 𝓮𝔁𝓲𝓼𝓽𝓮𝓭 𝓪𝓻𝓮 𝔀𝓪𝓲𝓽𝓲𝓷𝓰. 𝓓𝓪𝓻𝓮 𝓽𝓸 𝓹𝓮𝓮𝓴?</p>
   </div>
 
-  <footer>
-    <p>Made with 💖 by vandana</p>
-  </footer>
+  <div>
+    <button class="main-btn" onclick="location.href='notes.html'">Notes</button>
+    <button class="main-btn" onclick="location.href='projects.html'">Projects</button>
+  </div>
 
-  <!-- Local Background Music -->
-  <audio id="bgMusic" loop>
-    <source src="audio/hubMusic.mp3" type="audio/mp3">
-  </audio>
-
-  <script>
-    const bgMusic = document.getElementById('bgMusic');
-    let musicStarted = false;
-
-    // Play music on first click anywhere on the page
-    document.body.addEventListener('click', () => {
-      if (!musicStarted) {
-        bgMusic.play();
-        musicStarted = true;
-      }
-    }, { once: true });
-  </script>
 </body>
 </html>
-
-
-
-
